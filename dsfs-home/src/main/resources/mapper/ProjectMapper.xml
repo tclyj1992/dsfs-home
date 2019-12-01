@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dsfs.dsfshome.mapper.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.dsfs.dsfshome.entity.Project">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="project_type_id" jdbcType="INTEGER" property="projectTypeId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+  </resultMap>
+
+  <resultMap id="ExtendResultMap" type="com.dsfs.dsfshome.model.ProjectDto" extends="BaseResultMap">
+    <result column="project_type_name" jdbcType="VARCHAR" property="projectTypeName" />
+    <result column="project_type_parent_id" jdbcType="INTEGER" property="projectTypeParentId" />
+  </resultMap>
+
+  <select id="getProjectList" parameterType="com.dsfs.dsfshome.model.ProjectQo" resultMap="ExtendResultMap">
+    select
+      a.*,
+      b.name project_type_name
+    from
+      project a,project_type b
+    where
+      a.project_type_id = b.id
+      <if test="name!=null and name!=''">
+        and a.name like CONCAT('%',#{name},'%')
+      </if>
+      <if test="projectTypeId !=null">
+        and a.project_type_id = #{projectTypeId}
+      </if>
+      order by a.created_date desc
+  </select>
+
+  <select id="findById" parameterType="integer" resultMap="ExtendResultMap">
+    select
+      a.*,
+      b.parent_id project_type_parent_id
+    from
+      project a,project_type b
+    where
+      a.project_type_id = b.id
+      and a.id = #{projectId}
+  </select>
+
+</mapper>

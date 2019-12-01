@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dsfs.dsfshome.mapper.ContactMapper">
+  <resultMap id="BaseResultMap" type="com.dsfs.dsfshome.entity.Contact">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="fax_number" jdbcType="VARCHAR" property="faxNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dsfs.dsfshome.mapper.ConfigMapper">
+  <resultMap id="BaseResultMap" type="com.dsfs.dsfshome.entity.Config">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="config_code" jdbcType="VARCHAR" property="configCode" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="config_content" jdbcType="VARCHAR" property="configContent" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+  </resultMap>
+</mapper>
