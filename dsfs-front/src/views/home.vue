@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <div class="banner"></div>
+    <div class="banner">
+		<el-carousel indicator-position="outside" style="height: 400px">
+			<el-carousel-item v-for="(item,i) in homeImgs" :key="i" style="height: 400px">
+				<img :src="item" alt="" style="height: 350px;width: 100%">
+			</el-carousel-item>
+		</el-carousel>
+	</div>
     <div class="container">
 		<div class="item">
 			<div class="title">公司简介</div>
@@ -54,6 +60,8 @@
 	import t1 from '../assets/team/111.jpg';
 	import t2 from '../assets/team/222.jpg';
 	import t3 from '../assets/team/333.jpg';
+
+	import h1 from '../assets/homeBg.jpg';
 export default {
   name: 'home',
   components: {},
@@ -61,6 +69,7 @@ export default {
     return {
 		imgs: [a1,a2,a1,a2,a1,a2],
 		teamImgs:[t1,t2,t3],
+		homeImgs:[h1,h1,h1,h1],
     }
   },
   methods: {
@@ -87,13 +96,12 @@ export default {
   .home {
     .banner {
       height: 400px;
-      padding: 12px 24px;
-      line-height: 400px;
+      //padding: 12px 24px;
       text-align: center;
       font-size: 50px;
       font-weight: bold;
-      background: url(../assets/homeBg.jpg) no-repeat 0 0;
-      background-size: 100% 100%;
+      //background: url(../assets/homeBg.jpg) no-repeat 0 0;
+      //background-size: 100% 100%;
     }
     .container {
       display: flex;

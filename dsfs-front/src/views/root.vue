@@ -1,7 +1,7 @@
 <template>
     <div class="root">
         <div class="nav">
-            <div class="l"><i class="icon"></i><span class="title">成都鼎盛防水装饰工程有限公司</span></div>
+            <div class="l"><i class="icon"></i><span class="title"><router-link to="/home">成都鼎盛防水装饰工程有限公司</router-link></span></div>
             <div class="r">
                 <ul class="menu">
                     <li class="item"><router-link to="/home">首页</router-link></li>
@@ -20,25 +20,75 @@
         </div>
 		<router-view class="contentBox"/>
         <div class="footer">
-            <div class="mark">成都鼎盛防水装饰工程有限公司版权所有</div>
+            <router-link v-for="(item,i) in paths" :to="item.path" :key="i" class="mr10">{{item.name}}</router-link>
+            <div style="display: flex;">
+                <div style="flex: 1;"></div>
+                <div style="width: 400px;display: flex;">
+                    <div style="flex: 1;">
+                        联系方式：
+                        <div class="msgs">电话：{{address.phoneNumber}}</div>
+                        <div class="msgs">邮箱：{{address.email}}</div>
+                        <div class="msgs">地址：{{address.address}}</div>
+                    </div>
+                    <div class="qrcode"></div>
+                </div>
+            </div>
+            <div class="mark">成都鼎盛防水装饰工程有限公司版权所有·蜀ICP备19035358号</div>
         </div>
     </div>
 </template>
 <script>
     import {getRequest} from '../utils/api'
 	export default {
+		name: 'root',
 		data(){
 			return {
 				projectTypeList:[],
+                address:{
+
+                },
+                paths: [{
+				    path: '/home',
+                    name: '首页'
+                },{
+                    path: '/project',
+                    name: '公司项目'
+                },{
+                    path: '/companyInfo',
+                    name: '关于我们'
+                },{
+                    path: '/news',
+                    name: '新闻资讯'
+                },{
+                    path: '/jobs',
+                    name: '招聘信息'
+                },{
+                    path: '/about',
+                    name: '联系我们'
+                }]
 			}
 		},
         created(){
             this.getFirstProjectType();
+            this.getAddress();
         },
         mounted(){
 
         },
 		methods: {
+            getAddress(){
+                getRequest("/contact/get").then(resp=> {
+                    this.loading = false;
+                    if (resp.status == 200) {
+                        this.address = resp.data;
+                    } else {
+                        this.$message({type: 'error', message: '页面加载失败!'})
+                    }
+                }, resp=> {
+                    this.loading = false;
+                    this.$message({type: 'error', message: '页面加载失败!'})
+                });
+            },
 			goProject(type){
 				window.bus.$emit('getType',type)
 			},
@@ -153,12 +203,33 @@
         }
         .footer {
             margin-top: 20px;
-            background-color: #00a3e4;
-            height: 80px;
+            background-color: rgba(0,0,0,0.6);
+            min-height: 80px;
             padding: 12px 24px;
+            color: #fff;
             .mark{
                 text-align: center;
-                padding-top: 40px;
+                padding-top: 20px;
+            }
+            .mr10{
+                padding: 0 20px;
+                color: #fff;
+                cursor: pointer;
+                font-weight: 100;
+            }
+            .mr10:hover {
+                font-size: 16px;
+                padding: 0 25px;
+            }
+            .qrcode {
+                width: 100px;
+                min-height: 100px;
+                background: url("../assets/qrcode.png") no-repeat 0 0;
+                background-size: 100px 100px;
+
+            }
+            .msgs {
+                line-height: 26px;
             }
         }
     }
