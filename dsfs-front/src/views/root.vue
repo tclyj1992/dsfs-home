@@ -5,8 +5,9 @@
             <div class="r">
                 <ul class="menu">
                     <li class="item"><router-link to="/home">首页</router-link></li>
-                    <li class="item"><router-link to='/project'>
-                        公司项目
+                    <li class="item">
+                        <span style="font-weight: bold;">公司项目</span>
+                        <router-link to='/project'>
                         <ul class="list">
                             <li @click="goProject(item)" v-for="item in projectTypeList">{{item.name}}</li>
                         </ul>
@@ -69,11 +70,11 @@
 			}
 		},
         created(){
-            this.getFirstProjectType();
-            this.getAddress();
+
         },
         mounted(){
-
+            this.getFirstProjectType();
+            this.getAddress();
         },
 		methods: {
             getAddress(){
@@ -134,7 +135,8 @@
                     width: 56px;
                     padding: 5px 0;
                     height: 50px;
-                    background: url(../assets/icons.png) no-repeat 0 5px;
+                    background: url(../assets/logo.png) no-repeat 14px 10px;
+                    background-size: 40px 40px;
                     float: left;
                 }
                 .title {

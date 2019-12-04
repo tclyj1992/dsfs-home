@@ -44,7 +44,7 @@ export default {
 		window.bus.$on('getType', (type) => {
 			this.type = type
 			this.getProjectTypeByParentId();
-			console.log(this.menuList);
+			console.log(this.menuList,'-----');
 		})
 	},
 	methods: {

@@ -3,7 +3,7 @@
 		<div class="contentArea">
 			<div class="menu">
 				<div class="type">关于我们</div>
-				<div :class="['item',{'isActive': acNum==i}]" v-for="(item,i) in menuList[type]" :key="i" @click="getAcNum(i)">
+				<div :class="['item',{'isActive': acNum==i}]" v-for="(item,i) in menuList" :key="i" @click="getAcNum(i)">
 					<span>{{item.type}}</span>
 				</div>
 			</div>
@@ -45,9 +45,7 @@
         data(){
             return {
                 type: 0,// 0:公司简介；1.员工风貌；2.领导寄语
-                menuList:[
-                    [{type: '公司简介'}, {type: '员工风貌'},{type: '领导寄语'}],
-                ],
+                menuList:[{type: '公司简介'}, {type: '员工风貌'},{type: '领导寄语'}],
                 ps: [],
                 acNum: 0, //默认激活第一个
 				company:{
@@ -68,7 +66,7 @@
             }
         },
         mounted() {
-            this.loadCompany();
+            this.loadData(0);
             window.bus.$on('getType', (type) => {
                 this.type = type
             })
