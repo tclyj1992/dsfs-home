@@ -8,6 +8,13 @@
 			</div>
 		</div>
 		<div class="content">
+			<div style="display: flex">
+				<div style="flex: 1;">
+					<span style="font-weight: bold">{{menuList[0].name}}</span>
+					<span>大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就</span>
+				</div>
+				<img class="rightImg animated bounceIn" src="../assets/1.jpg" alt="暂无图片"></img>
+			</div>
 			<div class="title">工程案例：</div>
 			<div>
 				<div class="imgItem" v-for="item in projectList" @click="goDetail(item)">
@@ -154,6 +161,10 @@ export default {
 		.content {
 			flex: 1;
 			padding-top: 115px;
+			.rightImg {
+				width: 350px;
+				height: 350px;
+			}
 			.title{
 				font-weight: bold;
 				padding: 12px;
