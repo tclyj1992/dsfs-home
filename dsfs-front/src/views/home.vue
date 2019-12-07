@@ -152,7 +152,7 @@ export default {
 			.en-img {
 				width: 220px;
 				height: 275px;
-				background: url(../../dist/img/info.822640c9.jpg) no-repeat center center;
+				background: url(../assets/info.jpg) no-repeat center center;
 				background-size: 100% 100%;
 				transition: all 0.3s;
 			}
