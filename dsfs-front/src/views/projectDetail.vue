@@ -1,15 +1,55 @@
 <template>
 	<div class="projectDetail">
 		<div class="container">
-			<div class="title">标题</div>
-			<div class="info"><span>来源：<span style="padding: 0 20px;">发布时间： 2019-07-15 10:52:51</span><span>浏览次数： 55 次</span></span></div>
-			<img class="imgbox" src="../assets/1.jpg" alt="">
-			<div class="detail">决定恢复科举时代JFK是地方势力扩大飞机喀什的飞机喀什地方克里斯蒂就</div>
+			<div class="title">{{project.name}}</div>
+			<div class="info"><span>来源：<span style="padding: 0 20px;">发布时间： {{project.createdDate}}</span></span></div>
+			<img class="imgbox" src="project.imgUrl" alt="">
+			<div class="detail">{{project.content}}</div>
 		</div>
 	</div>
 </template>
 
 <script>
+    import {getRequest} from '../utils/api'
+    export default{
+        methods: {
+            goBack(){
+                this.$router.go(-1);
+            },
+			init(){
+                let id = this.$route.query.id;
+                var _this = this;
+                this.loading = true;
+                getRequest("/project/findById?projectId=" + id).then(resp=> {
+                    if (resp.status == 200) {
+                        _this.project = resp.data;
+                    }
+                    _this.loading = false;
+                }, resp=> {
+                    _this.loading = false;
+                    _this.$message({type: 'error', message: '页面加载失败!'});
+                });
+			},
+        },
+        mounted: function () {
+            this.init();
+        },
+        data(){
+            return {
+                project:{
+                    "id": null,
+                    "name": "",
+                    "projectTypeId": null,
+                    "content": "",
+                    "createdDate": "",
+                    "createdBy": "",
+                    "imgUrl": "",
+                },
+                loading: false,
+            }
+        }
+    }
+
 </script>
 
 <style lang="less">

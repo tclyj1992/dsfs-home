@@ -19,7 +19,9 @@ import Address   from '../../admin/Address'
 import JobList   from '../../admin/JobList'
 import PostJob   from '../../admin/PostJob'
 import ProjectList   from '../../admin/ProjectList'
+import ProjectTypeList   from '../../admin/ProjectTypeList'
 import AddProject   from '../../admin/AddProject'
+import AddProjectType   from '../../admin/AddProjectType'
 import Leader   from '../../admin/Leader'
 import TeamList   from '../../admin/TeamList'
 import AddTeam   from '../../admin/AddTeam'
@@ -148,6 +150,21 @@ export default new Router({
                     path: '/editProject',
                     name: '编辑项目',
                     component: AddProject,
+                    hidden: true,
+                    meta: {
+                        keepAlive: false
+                    }
+                },{
+                    path: '/projectTypeList',
+                    name: '项目分类列表',
+                    component: ProjectTypeList,
+                    meta: {
+                        keepAlive: true
+                    }
+                },{
+                    path: '/editProjectType',
+                    name: '编辑项目分类',
+                    component: AddProjectType,
                     hidden: true,
                     meta: {
                         keepAlive: false

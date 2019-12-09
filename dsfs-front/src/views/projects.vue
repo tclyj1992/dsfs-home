@@ -9,9 +9,9 @@
 		</div>
 		<div class="content">
 			<div style="padding-right: 100px">
-				<div style="font-weight: bold;font-size: 20px;padding-bottom: 10px">{{menuList[0].name}}:</div>
-				<img class="rightImg animated bounceIn" src="../assets/1.jpg" alt="暂无图片"></img>
-				&emsp;&emsp;大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就时封就开始了地方上岛咖啡劳动竞赛收快递费大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就临时封就开始了地方上岛咖啡劳动竞赛收快递费就大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就大立科技罚款临时封就开始了地方上岛咖啡劳动竞赛收快递费就就
+				<div style="font-weight: bold;font-size: 20px;padding-bottom: 10px">{{projectType.name}}:</div>
+				<img class="rightImg animated bounceIn" :src="projectType.imgUrl" alt="暂无图片"></img>
+				&emsp;&emsp;{{projectType.content}}
 				<div style="clear: both"></div>
 			</div>
 			<div class="title">工程案例：</div>
@@ -33,6 +33,8 @@ export default {
 	components: {},
 	data(){
 		return {
+		    projectType:{
+			},
 			type: {},
 			projectTypeId:1,
             currentPage: 1,
@@ -57,6 +59,7 @@ export default {
 		getAcNum(item,i){
 			this.acNum = i
 			this.projectTypeId = item.id;
+			this.projectType = item;
 			this.loadProject(this.currentPage,this.pageSize);
 		},
         //获取项目第一层级
@@ -67,6 +70,7 @@ export default {
                 if (resp.status == 200) {
                     this.menuList = resp.data;
                     this.projectTypeId = this.menuList[0].id;
+                    this.projectType = this.menuList[0];
                     this.loadProject(this.currentPage,this.pageSize);
                 } else {
                     this.$message({type: 'error', message: '数据加载失败!'});
@@ -108,10 +112,10 @@ export default {
                 this.$message({type: 'error', message: '数据加载失败!'});
             })
         },
-        goDetail(){
+        goDetail(item){
 		    this.$router.push({
 				path: '/projectDetail',
-				query: {}
+                query: {id:item.id}
 			})
 		}
 	}

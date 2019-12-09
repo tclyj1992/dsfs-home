@@ -69,9 +69,11 @@
     import PostJob from './PostJob'
     import ProjectList from './ProjectList'
     import AddProject from './AddProject'
+    import AddProjectType from './AddProjectType'
     import Leader from './Leader'
     import TeamList from './TeamList'
     import AddTeam from './AddTeam'
+    import ProjectTypeList from './ProjectTypeList'
 
     export default {
         methods: {
@@ -222,6 +224,21 @@
                             path: '/editProject',
                             name: '编辑项目',
                             component: AddProject,
+                            hidden: true,
+                            meta: {
+                                keepAlive: false
+                            }
+                        },{
+                            path: '/projectTypeList',
+                            name: '项目分类列表',
+                            component: ProjectTypeList,
+                            meta: {
+                                keepAlive: true
+                            }
+                        },{
+                            path: '/editProjectType',
+                            name: '编辑项目分类',
+                            component: AddProjectType,
                             hidden: true,
                             meta: {
                                 keepAlive: false
