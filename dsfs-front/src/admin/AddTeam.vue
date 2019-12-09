@@ -35,27 +35,7 @@
   import {getRequest} from '../utils/api'
   export default {
     mounted() {
-        let type = this.$route.query.type;
-        var _this = this;
-        if (type=='edit') {
-            let id = this.$route.query.id;
-            this.type = type;
-            this.loading = true;
-            getRequest("/config/findById?configId=" + id).then(resp=> {
-                _this.loading = false;
-                if (resp.status == 200) {
-                    _this.ruleForm = resp.data;
-                    if(resp.data.imgUrl){
-                        this.fileList =[{url: resp.data.imgUrl}];
-                    }
-                } else {
-                    _this.$message({type: 'error', message: '页面加载失败!'})
-                }
-            }, resp=> {
-                _this.loading = false;
-                _this.$message({type: 'error', message: '页面加载失败!'})
-            })
-        }
+        this.init();
     },
     data() {
       return {
@@ -80,22 +60,28 @@
       };
     },
     methods: {
-        loadCompany(){
-            getRequest("/config/getConfigByConfigCode?configCode=companyDesc").then(resp=> {
-                this.loading = false;
-                if (resp.status == 200) {
-                    let res = resp.data[0];
-                    this.ruleForm =res;
-                    if(res.imgUrl){
-                        this.fileList =[{url: res.imgUrl}];
+        init(){
+            let type = this.$route.query.type;
+            var _this = this;
+            if (type=='edit') {
+                let id = this.$route.query.id;
+                this.type = type;
+                this.loading = true;
+                getRequest("/config/findById?configId=" + id).then(resp=> {
+                    _this.loading = false;
+                    if (resp.status == 200) {
+                        _this.ruleForm = resp.data;
+                        if(resp.data.imgUrl){
+                            this.fileList =[{url: resp.data.imgUrl}];
+                        }
+                    } else {
+                        _this.$message({type: 'error', message: '页面加载失败!'})
                     }
-                } else {
-                    this.$message({type: 'error', message: '页面加载失败!'})
-                }
-            }, resp=> {
-                this.loading = false;
-                this.$message({type: 'error', message: '页面加载失败!'})
-            })
+                }, resp=> {
+                    _this.loading = false;
+                    _this.$message({type: 'error', message: '页面加载失败!'})
+                })
+            }
         },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
@@ -110,6 +96,7 @@
                         this.loading = false;
                         if (resp.status == 200 && resp.data.status == 'success') {
                             this.$message({type: 'success', message:'保存成功!'});
+                            this.init();
                         }
                     }, resp=> {
                         this.loading = false;
@@ -131,7 +118,25 @@
             this.$refs[formName].resetFields();
         },
         handleRemove(file) {
-            console.log(file);
+            let filePath = file.url.substr(file.url.indexOf("/blogimg"));
+            let url = "/news/deleteFile?filePath="+filePath;
+            deleteRequest(url).then(resp=> {
+                if (resp.status == 200) {
+                    var data = resp.data;
+                    this.$message({type: data.status, message: data.data});
+                    if (data.status == 'success') {
+                        this.$message({type: data.status, message: data.data});
+                    }else {
+                        this.$message({type: 'error', message: '删除失败!'});
+                    }
+                } else {
+                    this.$message({type: 'error', message: '删除失败!'});
+                }
+                this.loading = false;
+            }, resp=> {
+                this.loading = false;
+                this.$message({type: 'error', message: '删除失败!'});
+            });
         },
         handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;

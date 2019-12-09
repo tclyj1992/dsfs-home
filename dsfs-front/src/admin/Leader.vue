@@ -88,6 +88,7 @@
                         this.loading = false;
                         if (resp.status == 200 && resp.data.status == 'success') {
                             this.$message({type: 'success', message:'保存成功!'});
+                            this.loadLeader();
                         }
                     }, resp=> {
                         this.loading = false;
@@ -109,6 +110,25 @@
             this.$refs[formName].resetFields();
         },
         handleRemove(file) {
+            let filePath = file.url.substr(file.url.indexOf("/blogimg"));
+            let url = "/news/deleteFile?filePath="+filePath;
+            deleteRequest(url).then(resp=> {
+                if (resp.status == 200) {
+                    var data = resp.data;
+                    this.$message({type: data.status, message: data.data});
+                    if (data.status == 'success') {
+                        this.$message({type: data.status, message: data.data});
+                    }else {
+                        this.$message({type: 'error', message: '删除失败!'});
+                    }
+                } else {
+                    this.$message({type: 'error', message: '删除失败!'});
+                }
+                this.loading = false;
+            }, resp=> {
+                this.loading = false;
+                this.$message({type: 'error', message: '删除失败!'});
+            });
             console.log(file);
         },
         handlePictureCardPreview(file) {
