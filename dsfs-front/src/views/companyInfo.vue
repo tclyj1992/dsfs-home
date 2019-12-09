@@ -199,7 +199,7 @@
 				.leaderSay {
 					display: flex;
 					.l{
-						width: 300px;
+						width: 500px;
 						box-shadow: 0 1px 4px #333;
 						padding: 12px;
 						margin-right: 5px;
@@ -228,8 +228,8 @@
 							border: 1px solid #e8e8e8;
 							margin-right: 0.11%;
 							img{
-								width: 100%;
-								height: 162px;
+								width: 400px;
+								height: 230px;
 							}
 							.tipName {
 								text-align: center;
