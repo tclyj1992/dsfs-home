@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="title">{{project.name}}</div>
 			<div class="info"><span>来源：<span style="padding: 0 20px;">发布时间： {{project.createdDate}}</span></span></div>
-			<img class="imgbox" src="project.imgUrl" alt="">
+			<img class="imgbox" :src="project.imgUrl" alt="">
 			<div class="detail">{{project.content}}</div>
 		</div>
 	</div>

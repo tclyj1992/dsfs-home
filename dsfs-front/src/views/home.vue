@@ -28,9 +28,9 @@
             </div>
             <div class="item">
                 <div class="title">公司简介</div>
-                <img class="imgC animated bounceIn" src="../assets/info.jpg">
+                <img class="imgC animated bounceIn" :src="company.imgUrl">
                 <span style="line-height: 30px;font-size: 16px;font-family: 'Signika Negative', sans-serif;">
-				</br>&emsp;&emsp;成都鼎盛防水装饰工程有限公司办公室地址位于有着3000余年的建城史，故有“锦官城”之称的成都，成都 成都市武侯区双楠路5号，于2007年07月18日在武侯区市场和质量监督管理局注册成立，注册资本为500 万元人民币，在公司发展壮大的12年里，我们始终为客户提供好的产品和技术支持、健全的售后服务，我公司主要经营防水装饰工程、保温工程、防腐工程设计、施工；室内外装饰装修；建筑幕墙工程设计施工；园林绿化工程施工。（依法须经批准的项目，经相关部门批准后方可开展经营活动）。，我们有好的产品和专业的销售和技术团队，我公司属于成都装饰公司装饰设计公司黄页行业，如果您对我公司的产品服务有兴趣，期待您在线留言或者来电咨询
+				</br>&emsp;&emsp;{{company.configContent}}
 			</span>
                 <div style="clear: both;"></div>
             </div>
@@ -50,8 +50,8 @@
             <div class="item">
                 <div class="title">员工风貌</div>
                 <el-carousel :interval="4000" type="card" height="300px">
-                    <el-carousel-item v-for="(item,i) in teamImgs" :key="i">
-                        <img :src="item" alt="">
+                    <el-carousel-item v-for="(item,i) in teamList" :key="i">
+                        <img :src="item.imgUrl" alt="">
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -95,13 +95,45 @@
                 teamImgs: [t1, t2, t3],
                 homeImgs: [h1, h1, h1, h1],
                 projectList:[],
+                projectTypeList:[],
+                teamList:[],
+                company:{},
             }
         },
         mounted(){
+            this.getFirstProjectType();
             this.loadProjectList();
+            this.loadTeam();
+            this.loadCompany();
         },
         methods: {
+            //获取项目第一层级
+            getFirstProjectType(){
+                let url = "/projectType/getFirstProjectType";
+                getRequest(url).then(resp=> {
+                    this.loading = false;
+                    if (resp.status == 200) {
+                        this.projectTypeList = resp.data;
+                        //this.goProject(this.projectTypeList[0]);
+                    } else {
+                        this.$message({type: 'error', message: '数据加载失败!'});
+                    }
+                }, resp=> {
+                    this.loading = false;
+                    if (resp.response.status == 403) {
+                        this.$message({type: 'error', message: resp.response.data});
+                    } else {
+                        this.$message({type: 'error', message: '数据加载失败!'});
+                    }
+                }).catch(resp=> {
+                    //压根没见到服务器
+                    this.loading = false;
+                    this.$message({type: 'error', message: '数据加载失败!'});
+                })
+            },
             goProjects() {
+                window.bus.$emit('getType',this.projectTypeList[0])
+
                 this.$router.push({
                     path: '/project'
                 })
@@ -110,6 +142,42 @@
                 this.$router.push({
                     path: '/projectDetail',
                     query: {id:item.id}
+                })
+            },
+            loadCompany(){
+                getRequest("/config/getConfigByConfigCode?configCode=companyDesc").then(resp=> {
+                    this.loading = false;
+                    if (resp.status == 200) {
+                        let res = resp.data[0];
+                        this.company =res;
+                    } else {
+                        this.$message({type: 'error', message: '页面加载失败!'})
+                    }
+                }, resp=> {
+                    this.loading = false;
+                    this.$message({type: 'error', message: '页面加载失败!'})
+                })
+            },
+            loadTeam(){
+                let url = "/config/getConfigByConfigCode?configCode=companyTeam";
+                getRequest(url).then(resp=> {
+                    this.loading = false;
+                    if (resp.status == 200) {
+                        this.teamList = resp.data;
+                    } else {
+                        this.$message({type: 'error', message: '数据加载失败!'});
+                    }
+                }, resp=> {
+                    this.loading = false;
+                    if (resp.response.status == 403) {
+                        this.$message({type: 'error', message: resp.response.data});
+                    } else {
+                        this.$message({type: 'error', message: '数据加载失败!'});
+                    }
+                }).catch(resp=> {
+                    //压根没见到服务器
+                    this.loading = false;
+                    this.$message({type: 'error', message: '数据加载失败!'});
                 })
             },
             loadProjectList(){
@@ -190,14 +258,18 @@
                     cursor: pointer;
                     margin-bottom: 20px;
                     .en-img {
-                        width: 220px;
+                        width: 240px;
                         height: 275px;
                         background: url(../assets/info.jpg) no-repeat center center;
                         background-size: 100% 100%;
                         transition: all 0.3s;
+                        img {
+                            width: 240px;
+                            height: 275px;
+                        }
                     }
                     .en-text {
-                        width: 220px;
+                        width: 240px;
                         padding: 5px 10px;
                         box-sizing: border-box;
                         .en-text-title {
