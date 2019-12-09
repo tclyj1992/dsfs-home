@@ -8,6 +8,21 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
   </resultMap>
+
+  <select id="getProjectTypeList" parameterType="com.dsfs.dsfshome.model.ProjectTypeQo" resultMap="BaseResultMap">
+    select
+      a.*
+    from
+      project_type a
+    where
+      1=1
+      <if test="id!=null">
+        and a.id = #{id}
+      </if>
+    order by a.parent_id asc
+  </select>
 
 </mapper>
