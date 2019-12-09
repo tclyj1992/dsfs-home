@@ -86,11 +86,11 @@
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<version>RELEASE</version>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper</artifactId>
 			<version>${mapper.version}</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.mybatis.generator</groupId>
