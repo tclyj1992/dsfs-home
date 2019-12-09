@@ -104,5 +104,34 @@ public class NewsController {
         return JsonResultUtil.responseFailed("上传失败!");
     }
 
+    @RequestMapping(value = "/deleteFile", method = RequestMethod.DELETE)
+    public JsonResult deleteFile(HttpServletRequest req,@RequestParam("filePath") String filePath){
+        String realPath = req.getServletContext().getRealPath(filePath);
+        System.out.println("===========================================");
+        System.out.println(realPath);
+        File file = new File(realPath);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        if (file.exists() && file.isFile()) {
+            System.out.println(filePath);
+            if (forceDelete(file)) {
+                return JsonResultUtil.responseSuccess("删除成功!");
+            } else {
+                return JsonResultUtil.responseFailed("删除失败!");
+            }
+        } else {
+            return JsonResultUtil.responseFailed("参数有误!");
+        }
+    }
+
+    private static boolean forceDelete(File file){
+        boolean result = false;
+        int tryCount = 0;
+        while (!result && tryCount++ <10){
+            System.gc();
+            result =file.delete();
+        }
+        return result;
+    }
+
 
 }
