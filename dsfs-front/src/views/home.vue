@@ -8,8 +8,8 @@
                         <span>专业承接 <span style="font-weight: bold;font-size: 50px;">防水 保温 装饰 维修</span> 工程项目</span>
                     </div>
 
-                    <span style="position:absolute; z-index:3; left:900px; top:220px;color: cornflowerblue; font-weight: normal;font-size: 40px;">
-                        24小时热线：135454451121
+                    <span style="position:absolute; z-index:3; left:900px; top:230px;color: cornflowerblue; font-weight: normal;font-size: 40px;">
+                        24小时热线：13880755119
                     </span>
 
                 </el-carousel-item>
@@ -18,7 +18,7 @@
         <div class="container">
             <div class="item">
                 <div class="title" style="cursor: pointer;">
-                    <span @click="getFirstProjectType()">工程案列 >></span>
+                    <span @click="getFirstProjectType()"><router-link to="/project" style="color: #00a3e4;">工程案列 >></router-link></span>
                 </div>
                 <el-row>
                     <el-col :span='6' v-for="item in projectList" style="text-align: center;">
@@ -143,9 +143,6 @@
             },
             goProject(item) {
                 window.bus.$emit('getType',item);
-                this.$router.push({
-                    path: '/project'
-                })
             },
             goProjectDetail(item) {
                 this.$router.push({

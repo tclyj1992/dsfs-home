@@ -7,9 +7,11 @@
                     <li class="item"><router-link to="/home">首页</router-link></li>
                     <li class="item">
                         <span @click="getFirstProjectType()"><router-link to="/project">公司项目</router-link></span>
-                        <ul class="list">
-                            <li @click="goProject(item)" v-for="item in projectTypeList">{{item.name}}</li>
-                        </ul>
+                        <router-link to="/project">
+                            <ul class="list">
+                                <li @click="goProject(item)" v-for="item in projectTypeList">{{item.name}}</li>
+                            </ul>
+                        </router-link>
                     </li>
                     <li class="item"><router-link to="/companyInfo">关于我们</router-link></li>
                     <li class="item"><router-link to='/news'>新闻资讯</router-link></li>

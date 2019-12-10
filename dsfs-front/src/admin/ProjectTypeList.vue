@@ -20,13 +20,16 @@
             </el-table-column>
             <el-table-column
                     label="分类名称"
-                    width="300" align="left">
+                    width="300"
+                    align="left">
                 <template slot-scope="scope"><span style="color: #409eff;cursor: pointer">{{ scope.row.name}}</span>
                 </template>
             </el-table-column>
             <el-table-column
                     label="分类描述"
-                    width="300" align="left">
+                    width="300"
+                    align="left"
+                    show-overflow-tooltip>
                 <template slot-scope="scope"><span style="color: #409eff;cursor: pointer">{{ scope.row.content}}</span>
                 </template>
             </el-table-column>

@@ -13,9 +13,17 @@
 				<div style="clear: both;"></div>
 			</div>
 			<div class="itemList" v-if="acNum==1">
+				<img class="imgC" src="../assets/team.jpg">
+				&emsp;&emsp;我们的制作团队不光在技术上处于行业前端，我们更注重将客户的产品表达的清楚与准确，我们大多是理科出身，在机械、游戏、电子、物理等各学科我们都有研究，能轻松理解客户的构思，所以我们能更好的将客户的意图表现出来。我们拥有自己的专业三维动画、建筑动画、虚拟现实和影视拍摄制作团队。我们不断创新与提高三维动画、建筑动画、虚拟现实的制作水准，运用尖端的三维动画技术、虚拟现实技术，不断满足客户对数字体验服务的需求.。 我们的目标是将奇妙动画打造成国内演示动画行业第一品牌。 团队人数：11人
+团队理念：公司秉承诚信、规范、高效的工作原则，用技术赢得市场，以创意服务取得信誉，竭诚为广大客户提供优质、高效、快捷的服务。面向未来，坚持自主创新。
+服务项目：原来机械动画、游戏宣传片、企业宣传片、角色动画、特效制作、广告动画、电视节目制作、建筑漫游动画、动画演示、产品介绍动画、产品演示动画等。
+				<div style="clear: both; margin-bottom: 20px"></div>
 				<el-carousel :interval="4000" type="card" height="300px">
 					<el-carousel-item v-for="(item,i) in teamList" :key="i">
-						<img :src="item.imgUrl" alt="">
+						<div style="position: relative">
+							<img :src="item.imgUrl" alt="" style="width: 100%;height: 100%;">
+							<!--<span style="position: absolute;left: 0;bottom: 50px;">{{item.configContent}}</span>-->
+						</div>
 					</el-carousel-item>
 				</el-carousel>
 			</div>

@@ -150,7 +150,7 @@
                     type: 'warning'
                 }).then(() => {
                     _this.loading = true;
-                    let url = '/projectId/deleteById?projectId=' + id;
+                    let url = '/project/deleteById?projectId=' + id;
                     deleteRequest(url).then(resp=> {
                         if (resp.status == 200) {
                             var data = resp.data;
