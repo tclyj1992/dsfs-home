@@ -6,12 +6,11 @@
                 <ul class="menu">
                     <li class="item"><router-link to="/home">首页</router-link></li>
                     <li class="item">
-                        <span style="font-weight: bold;">公司项目</span>
-                        <router-link to='/project'>
+                        <span @click="getFirstProjectType()"><router-link to="/project">公司项目</router-link></span>
                         <ul class="list">
                             <li @click="goProject(item)" v-for="item in projectTypeList">{{item.name}}</li>
                         </ul>
-                    </router-link></li>
+                    </li>
                     <li class="item"><router-link to="/companyInfo">关于我们</router-link></li>
                     <li class="item"><router-link to='/news'>新闻资讯</router-link></li>
                     <li class="item"><router-link to='/jobs'>招聘信息</router-link></li>
@@ -21,7 +20,10 @@
         </div>
 		<router-view class="contentBox"/>
         <div class="footer">
-            <router-link v-for="(item,i) in paths" :to="item.path" :key="i" class="mr10">{{item.name}}</router-link>
+            <router-link v-for="(item,i) in paths" :to="item.path" :key="i" class="mr10">
+                <span v-if="item.path=='/project'" @click="getFirstProjectType()">{{item.name}}</span>
+                <span v-else>{{item.name}}</span>
+            </router-link>
             <div style="display: flex;">
                 <div style="flex: 1;"></div>
                 <div style="width: 400px;display: flex;">

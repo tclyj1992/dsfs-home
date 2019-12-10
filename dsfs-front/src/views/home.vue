@@ -28,10 +28,10 @@
             </div>
             <div class="item">
                 <div class="title">公司简介</div>
-                <img class="imgC animated bounceIn" :src="company.imgUrl">
-                <span style="line-height: 30px;font-size: 16px;font-family: 'Signika Negative', sans-serif;">
-				</br>&emsp;&emsp;{{company.configContent}}
-			</span>
+                <img class="imgC animated bounceInLeft" :src="company.imgUrl">
+                <span class="animated bounceInRight" style="animation-duration: 1s;-webkit-animation-delay: 0.5s;animation-delay: 0.5s; line-height: 30px;font-size: 16px;font-family: 'Signika Negative', sans-serif;">
+				    {{company.configContent}}
+			    </span>
                 <div style="clear: both;"></div>
             </div>
             <div class="item">
@@ -51,7 +51,7 @@
                 <div class="title">员工风貌</div>
                 <el-carousel :interval="4000" type="card" height="300px">
                     <el-carousel-item v-for="(item,i) in teamList" :key="i">
-                        <img :src="item.imgUrl" alt="">
+                        <img :src="item.imgUrl" alt="" style="width: 100%">
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -260,7 +260,7 @@
                     .en-img {
                         width: 240px;
                         height: 275px;
-                        background: url(../assets/info.jpg) no-repeat center center;
+                        /*background: url(../assets/info.jpg) no-repeat center center;*/
                         background-size: 100% 100%;
                         transition: all 0.3s;
                         img {
@@ -278,8 +278,12 @@
                         }
                         .en-text-content {
                             color: #a1a1a1;
+                            width: 220px;
                             border-bottom: 1px solid #eee;
                             padding-bottom: 10px;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
                         }
                         .en-text-more {
                             color: #888;
