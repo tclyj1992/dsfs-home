@@ -2,6 +2,7 @@ package com.dsfs.dsfshome.service;
 
 import com.dsfs.dsfshome.entity.Role;
 import com.dsfs.dsfshome.entity.User;
+import com.dsfs.dsfshome.exception.ServiceException;
 import com.dsfs.dsfshome.mapper.RolesMapper;
 import com.dsfs.dsfshome.mapper.UserMapper;
 import com.dsfs.dsfshome.util.Util;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -93,5 +95,29 @@ public class UserService implements UserDetailsService {
 
     public User getUserById(Long id) {
         return userMapper.getUserById(id);
+    }
+
+    public User login(String username, String password) {
+        if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
+            throw new ServiceException("用户名或密码不能为空!");
+        }
+
+        User user = userMapper.loadUserByUsername(username);
+        if(user==null){
+            throw new ServiceException("用户不存在!");
+        }
+
+        if(!user.getPassword().equals(encode(password))){
+            throw new ServiceException("密码不正确!");
+        }
+        return user;
+    }
+
+    private String encode(CharSequence charSequence) {
+        return DigestUtils.md5DigestAsHex(charSequence.toString().getBytes());
+    }
+
+    private boolean matches(CharSequence charSequence, String s) {
+        return s.equals(DigestUtils.md5DigestAsHex(charSequence.toString().getBytes()));
     }
 }
