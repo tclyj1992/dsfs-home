@@ -62,7 +62,7 @@ public class NewsController {
     }
 
     @DeleteMapping("deleteById")
-    @ApiOperation(value = "删除职位", notes = "删除职位")
+    @ApiOperation(value = "删除新闻", notes = "删除新闻")
     public JsonResult deleteById(@RequestParam("newsId") Long newsId) {
         int result = newsService.deleteById(newsId);
         if (result == 1) {

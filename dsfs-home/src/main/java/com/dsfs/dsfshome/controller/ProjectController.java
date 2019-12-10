@@ -47,4 +47,15 @@ public class ProjectController {
             return JsonResultUtil.responseFailed("保存失败!");
         }
     }
+
+    @DeleteMapping("deleteById")
+    @ApiOperation(value = "删除项目", notes = "删除项目")
+    public JsonResult deleteById(@RequestParam("projectId") Long projectId) {
+        int result = projectService.deleteById(projectId);
+        if (result == 1) {
+            return JsonResultUtil.responseSuccess("删除成功!");
+        } else {
+            return JsonResultUtil.responseFailed("删除失败!");
+        }
+    }
 }

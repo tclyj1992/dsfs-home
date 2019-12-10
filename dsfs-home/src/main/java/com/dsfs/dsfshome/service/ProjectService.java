@@ -67,4 +67,8 @@ public class ProjectService {
         project.setProjectType(list);
         return project;
     }
+
+    public int deleteById(Long projectId) {
+        return projectMapper.deleteByPrimaryKey(projectId);
+    }
 }
