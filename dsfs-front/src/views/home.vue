@@ -4,12 +4,22 @@
             <el-carousel indicator-position="outside" style="height: 400px">
                 <el-carousel-item v-for="(item,i) in homeImgs" :key="i" style="height: 400px">
                     <img :src="item" alt="" style="height: 350px;width: 100%">
+                    <div style="position:absolute; z-index:2; left:100px; top:100px;color: dodgerblue;font-weight: normal;font-size: 35px;">
+                        <span>专业承接 <span style="font-weight: bold;font-size: 50px;">防水 保温 装饰 维修</span> 工程项目</span>
+                    </div>
+
+                    <span style="position:absolute; z-index:3; left:900px; top:220px;color: cornflowerblue; font-weight: normal;font-size: 40px;">
+                        24小时热线：135454451121
+                    </span>
+
                 </el-carousel-item>
             </el-carousel>
         </div>
         <div class="container">
             <div class="item">
-                <div class="title" style="cursor: pointer;" @click="goProjects()">工程案列 >></div>
+                <div class="title" style="cursor: pointer;">
+                    <span @click="getFirstProjectType()">工程案列 >></span>
+                </div>
                 <el-row>
                     <el-col :span='6' v-for="item in projectList" style="text-align: center;">
                         <div class="en-content" @click="goProjectDetail(item)">
@@ -101,7 +111,7 @@
             }
         },
         mounted(){
-            this.getFirstProjectType();
+            //this.getFirstProjectType();
             this.loadProjectList();
             this.loadTeam();
             this.loadCompany();
@@ -114,7 +124,7 @@
                     this.loading = false;
                     if (resp.status == 200) {
                         this.projectTypeList = resp.data;
-                        //this.goProject(this.projectTypeList[0]);
+                        this.goProject(this.projectTypeList[0]);
                     } else {
                         this.$message({type: 'error', message: '数据加载失败!'});
                     }
@@ -131,9 +141,8 @@
                     this.$message({type: 'error', message: '数据加载失败!'});
                 })
             },
-            goProjects() {
-                window.bus.$emit('getType',this.projectTypeList[0])
-
+            goProject(item) {
+                window.bus.$emit('getType',item);
                 this.$router.push({
                     path: '/project'
                 })

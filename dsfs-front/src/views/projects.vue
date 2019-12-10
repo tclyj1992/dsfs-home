@@ -165,8 +165,8 @@ export default {
 			flex: 1;
 			padding-top: 115px;
 			.rightImg {
-				width: 350px;
-				height: 350px;
+				width: 300px;
+				height: 300px;
 				float: right;
 				padding: 0 0 5px 5px;
 			}
