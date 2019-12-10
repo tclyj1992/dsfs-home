@@ -45,7 +45,10 @@
             //成功
             var json = resp.data;
             if (json.status == 'success') {
-              _this.$router.replace({path: '/home'});
+                console.log("登录成功了。。。。。。。。。")
+                localStorage.setItem('loginKey','000000')
+                _this.$router.replace({path: '/admin'});
+                window.bus.$emit('user1Reload',json.data);
             } else {
               _this.$alert('登录失败!', '失败!');
             }

@@ -28,7 +28,7 @@ import AddTeam   from '../../admin/AddTeam'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     //mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -45,7 +45,10 @@ export default new Router({
             path: '/admin',
             name: '',
             component: Admin,
-            hidden: true
+            hidden: true,
+            meta: {
+                requireAuth: true
+            }
         }, {
             path: '/admin',
             component: Admin,
@@ -240,10 +243,10 @@ export default new Router({
         }
     ]
 })
-/*router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
 	if (to.meta.requireAuth) {
-		if(1){//登录了
-			console.log(1111)
+		if(localStorage.getItem("loginKey")){//登录了
+            next();
 		}else {//没登录
 			next({
 				path: 'login',
@@ -255,4 +258,5 @@ export default new Router({
 	} else{
 		next();
 	}
-})*/
+})
+export default router

@@ -8,9 +8,9 @@
     {{currentUserName}}<i class="el-icon-arrow-down el-icon--right home_userinfo"></i>
   </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="sysMsg">系统消息</el-dropdown-item>
+                        <!--<el-dropdown-item command="sysMsg">系统消息</el-dropdown-item>
                         <el-dropdown-item command="MyArticle">我的文章</el-dropdown-item>
-                        <el-dropdown-item command="MyHome">个人主页</el-dropdown-item>
+                        <el-dropdown-item command="MyHome">个人主页</el-dropdown-item>-->
                         <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -57,7 +57,6 @@
     </el-container>
 </template>
 <script>
-    import {getRequest} from '../utils/api'
     import Login from './Login'
     import Company from './Company'
     import NewsList from './NewsList'
@@ -76,39 +75,28 @@
     import ProjectTypeList from './ProjectTypeList'
 
     export default {
+        created(){
+            window.bus.$on('user1Reload', (user)=>{
+                console.log("user1Reload......",user.nickname)
+                this.loading = true;
+                this.$nextTick(()=>{
+                    this.currentUserName = user.nickname;
+                })
+            })
+            this.currentUserName = '游客';
+        },
         methods: {
             handleCommand(command) {
-                var _this = this;
                 if (command == 'logout') {
-                    this.$confirm('注销登录吗?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(function () {
-                        getRequest("/logout")
-                        _this.currentUserName = '游客';
-                        _this.$router.replace({path: '/'});
-                    }, function () {
-                        //取消
-                    })
+                    this.currentUserName = '游客';
+                    localStorage.setItem('loginKey',null);
+                    this.$router.replace({path: '/login'});
                 }
             }
         },
-        mounted: function () {
-            this.$alert('为了确保所有的小伙伴都能看到完整的数据演示，数据库只开放了查询权限和部分字段的更新权限，其他权限都不具备，完整权限的演示需要大家在自己本地部署后，换一个正常的数据库用户后即可查看，这点请大家悉知!', '友情提示', {
-                confirmButtonText: '确定',
-                callback: action => {
-                }
-            });
-            var _this = this;
-            getRequest("/currentUserName").then(function (msg) {
-                _this.currentUserName = msg.data;
-            }, function (msg) {
-                _this.currentUserName = '游客';
-            });
-        },
         data() {
             return {
+                user:{},
                 currentUserName: '',
                 myRoute: [{
                     path: '/login',
