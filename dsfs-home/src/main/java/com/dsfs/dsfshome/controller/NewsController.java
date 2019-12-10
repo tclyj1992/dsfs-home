@@ -97,7 +97,7 @@ public class NewsController {
         try {
             IOUtils.write(file.getBytes(), new FileOutputStream(new File(imgFolder, imgName)));
             url.append("/").append(imgName);
-            return JsonResultUtil.responseSuccess(url.toString());
+            return JsonResultUtil.responseSuccess(url.toString().substring(url.toString().indexOf("/dsfs-server/blogimg")));
         } catch (IOException e) {
             e.printStackTrace();
         }
