@@ -38,7 +38,7 @@
                     <div class="qrcode"></div>
                 </div>
             </div>
-            <div class="mark">成都鼎盛防水装饰工程有限公司版权所有·蜀ICP备19035358号</div>
+            <div class="mark">成都鼎盛防水装饰工程有限公司版权所有·<a href="http://www.beian.miit.gov.cn" target="_blank" style="color: deepskyblue;font-weight: normal;">蜀ICP备20001074号-1</a></div>
         </div>
     </div>
 </template>
