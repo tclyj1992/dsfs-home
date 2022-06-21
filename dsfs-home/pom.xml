@@ -27,7 +27,7 @@
 		<targetXMLPackage>mapper</targetXMLPackage>
 		<!--  依赖版本  -->
 		<mapper.version>3.5.2</mapper.version>
-		<mysql.version>5.1.29</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 	</properties>
 
 	<dependencies>
